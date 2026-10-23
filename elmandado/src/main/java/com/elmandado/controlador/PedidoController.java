@@ -53,13 +53,3 @@ public class PedidoController {
         servicio.eliminar(id);
     }
 }
-
-// Invoke-RestMethod -Uri "http://localhost:8080/api/pedidos" -Method Post
-// -ContentType "application/json" -Body '{"cliente":"Carlos", "plato":"Pizza
-// Pepperoni", "precio":12.50}'
-// Invoke-RestMethod -Uri "http://localhost:8080/api/pedidos" -Method Post
-// -ContentType "application/json" -Body '{"cliente":"Ana", "plato":"Hamburguesa
-// Doble", "precio":9.80}'
-// Invoke-RestMethod -Uri "http://localhost:8080/api/pedidos" -Method Post
-// -ContentType "application/json" -Body '{"cliente":"Luis", "plato":"Tacos al
-// Pastor", "precio":8.50}'

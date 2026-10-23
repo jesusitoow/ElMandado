@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/comunes :: head('Lista de pedidos')}"></head>
+<body>
+
+    <div th:replace="~{fragmentos/comunes :: menu('lista')}"></div>
+
+    <main class="container">
+        <section class="card" aria-labelledby="titulo-pedidos">
+            <header class="card-header">
+                <div>
+                    <h1 id="titulo-pedidos">Gestión de domicilios</h1>
+                    <p class="muted">Consulta, edita y actualiza el estado de cada pedido.</p>
+                </div>
+                <a th:href="@{/pedidos/nuevo}" class="btn btn-primary">Registrar pedido</a>
+            </header>
+
+            <div class="table-wrapper">
+                <table>
+                    <caption class="sr-only">Listado de pedidos registrados</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Plato</th>
+                            <th scope="col" class="num">Precio</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="num">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pedido : ${pedidos}">
+                            <td th:text="${pedido.id}" class="muted">1</td>
+                            <th scope="row" th:text="${pedido.cliente}">Mario</th>
+                            <td th:text="${pedido.plato}">Pizza Pepperoni</td>
+                            <td class="num"
+                                th:text="${'$' + #numbers.formatDecimal(pedido.precio, 1, 'COMMA', 2, 'POINT')}">$12.50</td>
+                            <td>
+                                <span th:if="${pedido.entregado}" class="badge badge-entregado">Entregado</span>
+                                <span th:unless="${pedido.entregado}" class="badge badge-pendiente">Pendiente</span>
+                            </td>
+                            <td class="num">
+                                <div class="acciones">
+                                    <form th:unless="${pedido.entregado}"
+                                          th:action="@{/pedidos/{id}/entregar(id=${pedido.id})}"
+                                          method="post">
+                                        <button type="submit" class="btn btn-sm btn-success">Entregar</button>
+                                    </form>
+
+                                    <a th:href="@{/pedidos/{id}/editar(id=${pedido.id})}"
+                                       class="btn btn-sm btn-ghost">Editar</a>
+
+                                    <form th:action="@{/pedidos/{id}/eliminar(id=${pedido.id})}"
+                                          method="post"
+                                          onsubmit="return confirm('¿Seguro que deseas eliminar este pedido?')">
+                                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr th:if="${#lists.isEmpty(pedidos)}">
+                            <td colspan="6" class="empty">
+                                No hay pedidos registrados por el momento.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/comunes :: head('Inicio')}"></head>
+<body>
+
+    <div th:replace="~{fragmentos/comunes :: menu('inicio')}"></div>
+
+    <main class="container">
+        <section class="hero card" aria-labelledby="hero-titulo">
+            <p class="eyebrow">Panel de administración</p>
+            <h1 id="hero-titulo">El Mandado</h1>
+            <p class="lead">
+                Gestión de pedidos y domicilios, integrada mediante API REST y Thymeleaf.
+            </p>
+            <a th:href="@{/pedidos}" class="btn btn-primary btn-lg">Ver gestión de pedidos</a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>El Mandado &copy; <span th:text="${#dates.year(#dates.createNow())}">2026</span></p>
+    </footer>
+
+</body>
+</html>

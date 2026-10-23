@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} + ' · El Mandado'">El Mandado</title>
+    <link rel="icon" th:href="@{/icon.png(v=2)}" type="image/png">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+    <header th:fragment="menu(activo)" class="site-header">
+        <nav class="navbar" aria-label="Navegación principal">
+            <a th:href="@{/}" class="navbar-brand">El Mandado</a>
+            <ul class="nav-links">
+                <li>
+                    <a th:href="@{/}"
+                       class="nav-link"
+                       th:classappend="${activo == 'inicio'} ? 'active'"
+                       th:attr="aria-current=${activo == 'inicio'} ? 'page'">Inicio</a>
+                </li>
+                <li>
+                    <a th:href="@{/pedidos}"
+                       class="nav-link"
+                       th:classappend="${activo == 'lista'} ? 'active'"
+                       th:attr="aria-current=${activo == 'lista'} ? 'page'">Pedidos</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+</body>
+</html>
