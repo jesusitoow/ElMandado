@@ -53,6 +53,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Consola web de H2 (en Boot 4 es un módulo aparte) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-h2console</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Driver de MySQL  -->
 		<dependency>
 			<groupId>com.mysql</groupId>
