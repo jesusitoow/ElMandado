@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/comunes :: head('Gestionar pedido')}"></head>
+<body>
+
+    <div th:replace="~{fragmentos/comunes :: menu('lista')}"></div>
+
+    <main class="container" th:with="editando=${esEdicion != null && esEdicion}">
+        <section class="card card-narrow" aria-labelledby="titulo-form">
+            <header class="card-header">
+                <div>
+                    <h1 id="titulo-form"
+                        th:text="${editando} ? 'Editar pedido #' + ${idPedido} : 'Nuevo pedido'">Detalles del pedido</h1>
+                    <p class="muted">Los campos marcados con * son obligatorios.</p>
+                </div>
+            </header>
+
+            <form th:action="${editando} ? @{/pedidos/{id}(id=${idPedido})} : @{/pedidos}"
+                  th:object="${nuevoPedido}"
+                  method="post"
+                  novalidate>
+
+                <div class="form-group">
+                    <label for="cliente">Nombre del cliente <span class="req">*</span></label>
+                    <input type="text" id="cliente" th:field="*{cliente}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('cliente')} ? 'is-invalid'"
+                           placeholder="Ej. Jesús Franco"
+                           autocomplete="name" required>
+                    <p class="error-msg" role="alert"
+                       th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="plato">Plato solicitado <span class="req">*</span></label>
+                    <input type="text" id="plato" th:field="*{plato}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('plato')} ? 'is-invalid'"
+                           placeholder="Ej. Hamburguesa doble carne" required>
+                    <p class="error-msg" role="alert"
+                       th:if="${#fields.hasErrors('plato')}" th:errors="*{plato}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="precio">Precio <span class="req">*</span></label>
+                    <input type="number" id="precio" th:field="*{precio}"
+                           class="form-control"
+                           th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid'"
+                           step="0.01" min="0" inputmode="decimal"
+                           placeholder="0.00" required>
+                    <p class="error-msg" role="alert"
+                       th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></p>
+                </div>
+
+                <div class="form-actions">
+                    <a th:href="@{/pedidos}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary"
+                            th:text="${editando} ? 'Guardar cambios' : 'Registrar pedido'">Guardar pedido</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
